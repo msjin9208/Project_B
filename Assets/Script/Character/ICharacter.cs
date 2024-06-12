@@ -2,7 +2,7 @@ namespace ICharacter
 {
     public interface IStat
     {
-        public void SetStat( );
+        public void SetStat( CharacterManager.CharacterStat stat );
     }
 
     public interface IAttack

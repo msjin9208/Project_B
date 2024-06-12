@@ -15,10 +15,10 @@ public partial class BattleScene : BaseScene
 
     public override void Enter( )
     {
-        SceneManager.LoadScene( "Battle" );
-
         OnLoadUI( );
         InitBaltte( );
+
+        _core.BattleStart( );
     }
 
     public override void Exit( )

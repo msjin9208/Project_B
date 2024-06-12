@@ -14,7 +14,6 @@ public interface IScene
 
 public class BaseScene : IScene
 {
-
     public virtual void Init( )
     {
         

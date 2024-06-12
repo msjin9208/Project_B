@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour, ICharacter.IAttack, ICharacter.IStat
 {
-    public virtual void SetStat( )
-    {
+    public string   NAME { get; private set; }
+    public int      HP { get; private set; }
+    public int      POWER { get; private set; }
+    public int      DEFENCE { get; private set; }
 
+
+    public virtual void SetStat( CharacterManager.CharacterStat stat )
+    {
+        NAME    = stat.name;
+        HP      = stat.hp;
+        POWER   = stat.power;
+        DEFENCE = stat.defence;
     }
 
     public virtual void Attack( )

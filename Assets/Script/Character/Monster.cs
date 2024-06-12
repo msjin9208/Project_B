@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : BaseCharacter
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void SetStat( CharacterManager.CharacterStat stat )
     {
-        
+        base.SetStat( stat );
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Attack( )
     {
-        
+        base.Attack( );
+    }
+
+    public override void Defense( )
+    {
+        base.Defense( );
     }
 }

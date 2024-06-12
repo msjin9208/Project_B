@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EntryScene : MonoBehaviour
 {
@@ -7,7 +6,7 @@ public class EntryScene : MonoBehaviour
     {
         Initialize( );
 
-        AppScene.Move( AppScene.SceneType.Battle );
+        AppScene.Move( CommonEnum.SceneType.Battle );
     }
 
     private void Initialize( )

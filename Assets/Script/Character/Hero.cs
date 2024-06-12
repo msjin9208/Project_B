@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Hero : BaseCharacter, ICharacter.IBuff
 {
-    public override void SetStat( )
+    public override void SetStat( CharacterManager.CharacterStat stat )
     {
-        base.SetStat( );
+        base.SetStat( stat );
     }
 
     public override void Attack( )

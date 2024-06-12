@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using Unity.VisualScripting;
+using CommonEnum;
+using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 public class AppScene
 {
-    public enum SceneType
-    {
-        Entry,
-        Battle,
-    }
+
 
     static private AppScene instance;
 
@@ -20,8 +17,10 @@ public class AppScene
 
     static public void Initialize( )
     {
-        instance = new AppScene( );
-        instance._sceneDic = new Dictionary<SceneType , BaseScene>( );
+        instance            = new AppScene( );
+        instance._sceneDic  = new Dictionary<SceneType , BaseScene>( );
+
+        Add( SceneType.Battle );
     }
 
     static public bool Add( SceneType sceneType )
@@ -48,7 +47,7 @@ public class AppScene
         }
     }
 
-    static public bool Move( SceneType sceneType ) 
+    static public void Move( SceneType sceneType ) 
     {
         if( null != instance._currentScene )
         {
@@ -56,20 +55,28 @@ public class AppScene
             instance._currentScene = null;
         }
 
-        if( false == instance._sceneDic.TryGetValue( sceneType, out instance._currentScene ))
-        {
-            return false;
-        }
-        else
-        {
-            instance._currentType = sceneType;
-            instance._currentScene.Enter( );
-            return true;
-        }
+        OnLoadScene( sceneType );
     }
 
-    static public bool Back( )
+    static private void OnLoadScene( SceneType scene )
     {
-        return Move( instance._currentType - 1 );
+        SceneManager.LoadSceneAsync( scene.ToString( ) ).completed += ( asycnOp ) =>
+        {
+            if( false == instance._sceneDic.TryGetValue( scene , out instance._currentScene ) )
+            {
+                instance._currentScene = null;
+            }
+            else
+            {
+                instance._currentType = scene;
+
+                instance._currentScene.Enter( );
+            }
+        };
+    }
+
+    static public void Back( )
+    {
+        Move( instance._currentType - 1 );
     }
 }
