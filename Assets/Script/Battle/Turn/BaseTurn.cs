@@ -11,6 +11,12 @@ public interface ITurn
 
 public abstract class BaseTurn : ITurn
 {
+    protected TurnCore _core;
+    public BaseTurn( TurnCore core )
+    {
+        _core = core;
+    }
+
     public virtual void Enter( BaseCharacter character ) { }
     public virtual void Excute( ) { }
     public virtual void Exit( ) { }

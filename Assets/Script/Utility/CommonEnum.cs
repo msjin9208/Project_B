@@ -15,6 +15,12 @@ namespace CommonEnum
         Enemy,
     }
 
+    public enum OnTarget
+    {
+        Self,
+        Enemy,
+    }
+
     public enum CharacterType
     {
         Hero,

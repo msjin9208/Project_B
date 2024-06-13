@@ -38,7 +38,12 @@ public partial class BattleScene
     {
         _core           = new BattleCore( );
 
-        _core.TurnEndCb = PlaySuffleCards;
+        _core.PlayCardSuffle = PlaySuffleCards;
+    }
+
+    private void SelectCard( int idx )
+    {
+        _core.PlayTurn( idx );
     }
 }
 
@@ -53,10 +58,12 @@ public partial class BattleScene
     {
         if( _sceneUI == null )
             _sceneUI = MainUI.GetUI<BattleSceneUI>( MainUI.UIType.Battle );
+
+        _sceneUI.SelectCardCb = SelectCard;
     }
 
     private void PlaySuffleCards( CardStat[] cards )
     {
-
+        _sceneUI.PlayViewCards(cards);
     }
 }

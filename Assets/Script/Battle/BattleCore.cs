@@ -67,8 +67,27 @@ public partial class BattleCore
 
     public BaseCharacter GetCurCharacter => _characterDic[_curTurnCamp];
     public BaseCharacter GetCharacter( Camp camp ) => _characterDic[camp];
+    public BaseCharacter GetTarget( OnTarget onTarget )
+    {
+        BaseCharacter target = null;
+        
+        if( OnTarget.Self == onTarget )
+        {
+            target = GetCharacter(_curTurnCamp);
+        }
+        else
+        {
+            target = GetCharacter( Camp.Ally );
+            if (_curTurnCamp == Camp.Ally)
+            {
+                target = GetCharacter( Camp.Enemy ); 
+            }
+        }
 
-    public UnityAction<CardStat[]> TurnEndCb;
+        return target;
+    }
+
+    public UnityAction<CardStat[]> PlayCardSuffle;
     
     private void InitTurn( )
     {
@@ -80,20 +99,15 @@ public partial class BattleCore
     {
         SwichTurn( );
 
-        _turnCore.TurnStart( );
-    }
+      
 
-    public void EndTurn( )
-    {
-        SwichTurn( );
-
-        if( null != TurnEndCb )
+        if (null != PlayCardSuffle)
         {
-            CardStat[] cards = GetCardsWithSuffle( _curTurnCamp );
-            TurnEndCb.Invoke( cards );
+            CardStat[] cards = GetCardsWithSuffle(_curTurnCamp);
+            PlayCardSuffle.Invoke(cards);
         }
-            
     }
+
 
     private void SwichTurn( )
     {
@@ -118,12 +132,15 @@ public partial class BattleCore
 
         BaseCharacter character = GetCurCharacter;
 
-        _turnCore.SwichTurn( character );
+        _turnCore.SetTurnCharacter( character );
     }
 
-    private void NextTurn( )
+    public void PlayTurn( int cardIdx )
     {
-        
+        BaseCard card           = GetCard( cardIdx );
+        BaseCharacter target    = GetTarget( card.TargetType );
+
+        _turnCore.PlayTurn( card, target );
     }
 }
 
@@ -171,6 +188,8 @@ public partial class BattleCore
 public partial class BattleCore
 {
     private List<BaseCard> _cardList;
+    public BaseCard GetCard( int cardIdx ) 
+        => _cardList.Find( card => card.Index  == cardIdx );
 
     private void InitializeCard( )
     {
@@ -182,8 +201,8 @@ public partial class BattleCore
 
     private void AddCardData( int idx )
     {
-        BaseCard card = CardManager.Instance.GetCard( idx );
-        if( 0 == card.Index )
+        BaseCard card = CardManager.Instance.GetCard<BaseCard>( idx );
+        if( null == card || 0 == card.Index )
         {
             Debug.Log( $"Card Data is not Avavailabe {idx}" );
             return;
@@ -207,13 +226,8 @@ public partial class BattleCore
 
         cardStats[0] = mgr.GetData( _cardList[0].Index );
         cardStats[1] = mgr.GetData( _cardList[1].Index );
-        cardStats[0] = mgr.GetData( _cardList[0].Index );
+        cardStats[2] = mgr.GetData( _cardList[0].Index );
 
         return cardStats;
-    }
-
-    private void ShuffleCard( )
-    {
-
     }
 }

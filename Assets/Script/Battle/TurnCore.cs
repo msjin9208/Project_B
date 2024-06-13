@@ -4,6 +4,7 @@ using UnityEngine;
 using CommonEnum;
 using System;
 using UniRx;
+using UnityEngine.Events;
 
 /// <summary>
 /// Base
@@ -22,10 +23,10 @@ public partial class TurnCore
         _turnCnt    = 0;
         _remainTurn = 10;
 
-        _turnStates.Add( TurnState.Stand    , new TurnStand( ) );
-        _turnStates.Add( TurnState.Start    , new TurnStart( ) );
-        _turnStates.Add( TurnState.Behavior , new TurnBehavior( ) );
-        _turnStates.Add( TurnState.End      , new TurnEnd( ) );
+        _turnStates.Add( TurnState.Stand    , new TurnStand( this ) );
+        _turnStates.Add( TurnState.Start    , new TurnStart( this ) );
+        _turnStates.Add( TurnState.Behavior , new TurnBehavior( this ) );
+        _turnStates.Add( TurnState.End      , new TurnEnd( this ) );
 
         MoveTo( TurnState.Stand );
     }
@@ -42,8 +43,17 @@ public partial class TurnCore
     private IDisposable                     _turnExcute;
 
     private BaseCharacter                   _turnCharacter;
+    private BaseCharacter                   _targetCharacter;
+    private BaseCard                        _selectCard;
     private int                             _turnCnt;
     private int                             _remainTurn;
+
+    public void ResetData( )
+    {
+        _turnCharacter      = null;
+        _targetCharacter    = null;
+        _selectCard         = null;
+    }
 }
 
 /// <summary>
@@ -51,19 +61,39 @@ public partial class TurnCore
 /// </summary>
 public partial class TurnCore
 {
-    public void SwichTurn( BaseCharacter character )
+    public UnityAction ResetTurn;
+
+    public void SetTurnCharacter( BaseCharacter character )
     {
         _turnCharacter = character;
     }
 
-    public void TurnStart( )
+    public void PlayTurn( BaseCard card, BaseCharacter target )
     {
-        MoveTo( TurnState.Start );
+        _selectCard         = card;
+        _targetCharacter    = target;
+
+        MoveTo(TurnState.Start);
+    }
+
+    public void NextState( )
+    {
+        ++_curState;
     }
 
     public void NextTurn( )
     {
-        ++_turnCnt;
+        TurnState next = _curState;
+        if (++_curState == TurnState.End)
+        {
+            next = TurnState.Stand;
+        }
+        else
+        {
+            next = ++_curState;
+        }
+
+        MoveTo(next);
     }
 
     private void MoveTo( TurnState state )

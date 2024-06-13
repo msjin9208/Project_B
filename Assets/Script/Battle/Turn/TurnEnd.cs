@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TurnEnd : BaseTurn
 {
+    public TurnEnd(TurnCore core) : base(core) { }
+
     public override void Enter( BaseCharacter character )
     {
         base.Enter( character );

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurnStand : BaseTurn
 {
+    public TurnStand(TurnCore core) : base(core) { }
     public override void Enter( BaseCharacter character )
     {
         base.Enter( character );
