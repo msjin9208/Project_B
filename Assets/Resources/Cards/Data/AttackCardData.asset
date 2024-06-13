@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cea409690eeed4b8ee660d7d4c6d3a, type: 3}
+  m_Name: AttackCardData
+  m_EditorClassIdentifier: 
+  _cardStats:
+  - Index: 1
+    Power: 10
+    Defense: 0
+    TickTurn: 0
+    TickValue: 0
+    CardName: "\uAE30\uBCF8 \uACF5\uACA9"
+    CardSubject: "\uAE30\uBCF8 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9
+      \uD569\uB2C8."
+    CardType: 1
+    Animation: Attack
+    BgRes: Card_Alt2_Front
+  - Index: 2
+    Power: 20
+    Defense: 0
+    TickTurn: 0
+    TickValue: 0
+    CardName: "\uAC15\uD55C \uACF5\uACA9"
+    CardSubject: "\uAC15 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9 \uD569\uB2C8."
+    CardType: 1
+    Animation: Attack
+    BgRes: Card_Silver_Blue_Front

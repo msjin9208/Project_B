@@ -1,37 +1,23 @@
 using CommonEnum;
 using UnityEngine;
 
+[System.Serializable]
+public struct CharacterStat
+{
+    public int              Index;
+    public string           Name;
+    public int              Hp;
+    public int              Power;
+    public int              Defense;
+    public string           ResName;
+    public CharacterType    CharacterType;
+}
+
 [CreateAssetMenu(fileName = "Character Data" , menuName = "Character/Character Data", order = int.MaxValue)]
 public class CharacterData : ScriptableObject
 {
     [SerializeField]
-    private int             _index;
-    [SerializeField]
-    private string          _name;
-    [SerializeField]
-    private int             _hp;
-    [SerializeField]
-    private int             _power;
-    [SerializeField]
-    private int             _defence;
-    [SerializeField]
-    private string          _resName;
-    [SerializeField]
-    private CharacterType   _characterType;
+    private CharacterStat[] _characterStat;
 
-    #region Table
-    public int              Index => _index;
-    #endregion
-
-    #region [ Stat ]
-    public string           Name => _name;
-    public int              HP => _hp;
-    public int              Power => _power;
-    public int              Defence => _defence;
-    public CharacterType    CharacterType => _characterType;
-    #endregion
-
-    #region [ Resource ]
-    public string           ResName => _resName;
-    #endregion
+    public CharacterStat[]  CharacterStats => _characterStat;
 }

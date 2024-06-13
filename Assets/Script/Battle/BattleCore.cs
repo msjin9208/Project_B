@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommonEnum;
-
-
+using UnityEngine.Events;
 
 /// <summary>
 /// Base
@@ -19,6 +18,8 @@ public partial class BattleCore
 
         InitCharacterPosition( );
         InitCharacter( );
+
+        InitializeCard( );
     }
 
     public void BattleStart( )
@@ -66,6 +67,8 @@ public partial class BattleCore
 
     public BaseCharacter GetCurCharacter => _characterDic[_curTurnCamp];
     public BaseCharacter GetCharacter( Camp camp ) => _characterDic[camp];
+
+    public UnityAction<CardStat[]> TurnEndCb;
     
     private void InitTurn( )
     {
@@ -82,7 +85,14 @@ public partial class BattleCore
 
     public void EndTurn( )
     {
+        SwichTurn( );
 
+        if( null != TurnEndCb )
+        {
+            CardStat[] cards = GetCardsWithSuffle( _curTurnCamp );
+            TurnEndCb.Invoke( cards );
+        }
+            
     }
 
     private void SwichTurn( )
@@ -136,7 +146,7 @@ public partial class BattleCore
     private void InitCharacter( )
     {
         AddCharacterData( Camp.Ally , 1 , _allyTrans );
-        AddCharacterData( Camp.Enemy , 2 , _enemyTrans );
+        AddCharacterData( Camp.Enemy , 10 , _enemyTrans );
     }
 
     private bool AddCharacterData( Camp camp, int idx, Transform parent )
@@ -148,10 +158,62 @@ public partial class BattleCore
         }
         else
         {
-
             _characterDic.Add( camp , load );
 
             return true;
         }
+    }
+}
+
+/// <summary>
+/// Controll Card
+/// </summary>
+public partial class BattleCore
+{
+    private List<BaseCard> _cardList;
+
+    private void InitializeCard( )
+    {
+        _cardList = new List<BaseCard>();
+
+        AddCardData( 1 );
+        AddCardData( 2 );
+    }
+
+    private void AddCardData( int idx )
+    {
+        BaseCard card = CardManager.Instance.GetCard( idx );
+        if( 0 == card.Index )
+        {
+            Debug.Log( $"Card Data is not Avavailabe {idx}" );
+            return;
+        }
+        else
+        {
+            _cardList.Add( card );
+        }
+    }
+
+    public int[] GetHasCards( Camp camp )
+    {
+        return default;
+    }
+       
+    public CardStat[] GetCardsWithSuffle( Camp camp )
+    {
+        CardStat[] cardStats = new CardStat[3];
+
+        CardManager mgr = CardManager.Instance;
+
+        cardStats[0] = mgr.GetData( _cardList[0].Index );
+        cardStats[1] = mgr.GetData( _cardList[1].Index );
+        cardStats[0] = mgr.GetData( _cardList[0].Index );
+
+        return cardStats;
+    }
+
+    private void ShuffleCard( )
+    {
+
     }
 }

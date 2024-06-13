@@ -28,5 +28,14 @@ namespace CommonEnum
         Behavior    = 2,
         End         = 3,
     }
+
+    public enum CardType
+    {
+        None,
+        Attack,
+        Defense,
+        Buff,
+        Debuff
+    }
     #endregion
 }

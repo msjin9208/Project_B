@@ -1,17 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using CommonEnum;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class BaseCard : MonoBehaviour, ICard
+public abstract class BaseCard : MonoBehaviour, ICard.IStat
 {
-    [SerializeField]Image           _cardBg;
-    [SerializeField]TextMeshProUGUI _cardTitle;
-    [SerializeField]TextMeshProUGUI _cardSubject;
+    public int          Index { private set; get; }
+    public int          Power { private set; get; }
+    public int          Defense { private set; get; }
+    public int          TickTurn { private set; get; }
+    public int          TickValue { private set; get; }
+    public CardType     CardType { private set; get; }
+    public string       Animation { private set; get; }
 
     public void SetCard( CardStat stat )
     {
-
+        Index       = stat.Index;
+        Power       = stat.Power;
+        Defense     = stat.Defense;
+        TickTurn    = stat.TickTurn;
+        TickValue   = stat.TickValue;
+        CardType    = stat.CardType;
+        Animation   = stat.Animation;
     }
 }
