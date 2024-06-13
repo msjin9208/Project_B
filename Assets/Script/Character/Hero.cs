@@ -1,29 +1,22 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : BaseCharacter, ICharacter.IBuff
+public class Hero : BaseCharacter, ICharacter.IBehavior
 {
-    public override void SetStat( CharacterManager.CharacterStat stat )
+    public override void SetStat( CharacterStat stat )
     {
         base.SetStat( stat );
     }
 
-    public override void Attack( )
-    {
-        base.Attack( );
-    }
 
-    public override void Defense( )
-    {
-        base.Defense( );
-    }
-
-    public virtual void Buff( )
+    public async UniTask DoBehavior( )
     {
 
     }
-    public virtual void Debuff( )
+
+    public void DoAnimation( string anim )
     {
 
     }

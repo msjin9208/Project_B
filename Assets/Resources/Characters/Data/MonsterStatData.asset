@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 487691235dc6709469ec016648b0cf67, type: 3}
-  m_Name: Monster1
+  m_Name: MonsterStatData
   m_EditorClassIdentifier: 
-  _index: 2
-  _name: MONSTER
-  _hp: 50
-  _power: 5
-  _defence: 1
-  _resName: Monster
+  _characterStat:
+  - Index: 10
+    Name: Cow
+    Hp: 20
+    Power: 2
+    Defense: 1
+    ResName: Monster
+    CharacterType: 1

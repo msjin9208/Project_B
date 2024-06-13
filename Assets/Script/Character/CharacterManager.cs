@@ -1,9 +1,5 @@
 using CommonEnum;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public partial class CharacterManager
@@ -16,19 +12,19 @@ public partial class CharacterManager
             if( null == _instance )
             {
                 _instance = new CharacterManager( );
-                _instance.Init( );
+                _instance.Initialize( );
             }
 
             return _instance;
         }
     }
 
-    private void Init( )
+    private void Initialize( )
     {
-        _characterData  = new Dictionary<int , CharacterData>( );
+        _characterData  = new Dictionary<int , CharacterStat>( );
 
-        AddCharacterData( "Hero" );
-        AddCharacterData( "Monster1" );
+        AddCharacterData( "HeroStatData" );
+        AddCharacterData( "MonsterStatData" );
     }
 }
 
@@ -37,22 +33,27 @@ public partial class CharacterManager
 /// </summary>
 public partial class CharacterManager
 {
-    public struct CharacterStat
-    {
-        public string   name;
-        public int      hp;
-        public int      power;
-        public int      defence;
-    }
-
     private readonly string                 _dataPath = "Characters/Data/";
 
-    private Dictionary<int, CharacterData>  _characterData;
+    private Dictionary<int, CharacterStat>  _characterData;
 
     private void AddCharacterData( string res )
     {
         CharacterData data = Resources.Load<CharacterData>( _dataPath + res );
-        _characterData.Add( data.Index , data );
+
+        CharacterStat[] stats = data.CharacterStats;
+
+        for( int i = 0; i < stats.Length; i++ )
+        {
+            CharacterStat stat = stats[i];
+            if( _characterData.ContainsKey( stat.Index ) )
+            {
+                Debug.Log( $"Has been Stat {stat.Index}" );
+                continue;
+            }
+
+            _characterData.Add( stat.Index , stat );
+        }
     }
 
     private CharacterStat GetStat( int idx )
@@ -63,13 +64,7 @@ public partial class CharacterManager
         }
         else
         {
-            CharacterStat stat = new CharacterStat( );
-            stat.name       = data.Name;
-            stat.hp         = data.HP;
-            stat.power      = data.Power;
-            stat.defence    = data.Defence;
-
-            return stat;
+            return data;
         }
     }
 }
@@ -94,7 +89,7 @@ public partial class CharacterManager
         }
     }
 
-    private BaseCharacter OnLoadPrefab( CharacterData data, Transform parent )
+    private BaseCharacter OnLoadPrefab( CharacterStat data, Transform parent )
     {
         GameObject go = Resources.Load<GameObject>( _prefabPath + data.ResName );
         if( null == go )

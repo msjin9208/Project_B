@@ -3,28 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BaseCharacter : MonoBehaviour, ICharacter.IAttack, ICharacter.IStat
+public partial class BaseCharacter : MonoBehaviour , ICharacter.IStat
 {
-    public string   NAME { get; private set; }
-    public int      HP { get; private set; }
-    public int      POWER { get; private set; }
-    public int      DEFENCE { get; private set; }
+    public string   Name { get; protected set; }
+    public int      Hp { get; protected set; }
+    public int      MaxHp { get; protected set; }
+    public int      Power { get; protected set; }
+    public int      Defense { get; protected set; }
+    public bool     Death { get; protected set; }
 
 
-    public virtual void SetStat( CharacterManager.CharacterStat stat )
+    public virtual void SetStat( CharacterStat stat )
     {
-        NAME    = stat.name;
-        HP      = stat.hp;
-        POWER   = stat.power;
-        DEFENCE = stat.defence;
+        Name    = stat.Name;
+        Hp      = stat.Hp;
+        MaxHp   = stat.Hp;
+        Power   = stat.Power;
+        Defense = stat.Defense;
+
+        InitAnimator( );
     }
+}
 
-    public virtual void Attack( )
+public partial class BaseCharacter
+{
+    protected Animator _animator;
+
+    private void InitAnimator( )
     {
-
-    }
-    public virtual void Defense( )
-    {
-
+        if(false == TryGetComponent<Animator>( out _animator ))
+        {
+            Debug.Log( "Animator is not Available" );
+        }
     }
 }

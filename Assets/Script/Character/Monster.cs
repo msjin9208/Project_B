@@ -1,21 +1,42 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : BaseCharacter
+public partial class Monster : BaseCharacter, ICharacter.IBehavior, ICharacter.IDamage
 {
-    public override void SetStat( CharacterManager.CharacterStat stat )
+    public override void SetStat( CharacterStat stat )
     {
         base.SetStat( stat );
     }
 
-    public override void Attack( )
+    public void OnDamage( int dmg )
     {
-        base.Attack( );
+        Hp -= dmg;
+
+        CheckDeath( );
     }
 
-    public override void Defense( )
+    public bool CheckDeath( ) 
     {
-        base.Defense( );
+        Death = Hp <= 0;
+
+        return Death;
+    }
+}
+
+/// <summary>
+/// Animation
+/// </summary>
+public partial class Monster
+{
+    public async UniTask DoBehavior( )
+    {
+
+    }
+
+    public void DoAnimation( string anim )
+    {
+
     }
 }

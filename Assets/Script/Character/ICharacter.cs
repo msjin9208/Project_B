@@ -1,14 +1,22 @@
+using Cysharp.Threading.Tasks;
+
 namespace ICharacter
 {
     public interface IStat
     {
-        public void SetStat( CharacterManager.CharacterStat stat );
+        public void SetStat( CharacterStat stat );
     }
 
-    public interface IAttack
+    public interface IDamage
     {
-        public void Attack( );
-        public void Defense( );
+        public void OnDamage( int dmg );
+        public bool CheckDeath( );
+    }
+
+    public interface IBehavior
+    {
+        public UniTask DoBehavior( );
+        public void DoAnimation( string anim );
     }
 
     public interface IBuff
