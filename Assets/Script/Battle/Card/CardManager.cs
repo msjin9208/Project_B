@@ -70,12 +70,17 @@ public partial class CardManager
         }
     }
     
-    public BaseCard GetCard( int idx )
+    public T GetCard<T>( int idx ) where T : BaseCard
     {
         CardStat stat = GetData( idx );
 
-        Type cardType = GetCardType( stat.CardType );
-        BaseCard card = Activator.CreateInstance( cardType ) as BaseCard;
+        Type cardType   = GetCardType( stat.CardType );
+        T card          = Activator.CreateInstance( cardType ) as T;
+
+        if( null != card )
+        {
+            card.SetCard(stat);
+        }
 
         return card;
     }

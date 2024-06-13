@@ -12,6 +12,7 @@ public struct CardStat
     public string   CardName;
     public string   CardSubject;
     public CardType CardType;
+    public OnTarget TargetType;
     public string   Animation;
     public string   BgRes;
 }
