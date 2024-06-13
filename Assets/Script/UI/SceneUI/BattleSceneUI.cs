@@ -26,7 +26,10 @@ public partial class BattleSceneUI : BaseSceneUI
     }
 }
 
+/// <summary>
+/// Cards
+/// </summary>
 public partial class BattleSceneUI
 {
-
+    
 }

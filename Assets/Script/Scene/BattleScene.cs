@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public partial class BattleScene : BaseScene
 {
-    BattleSceneUI _sceneUI = null;
+    
 
     public override void Init( )
     {
@@ -25,12 +25,6 @@ public partial class BattleScene : BaseScene
     {
         base.Exit( );
     }
-
-    public override void OnLoadUI( )
-    {
-        if( _sceneUI == null )
-            _sceneUI = MainUI.GetUI<BattleSceneUI>( MainUI.UIType.Battle );
-    }
 }
 
 /// <summary>
@@ -42,6 +36,27 @@ public partial class BattleScene
 
     private void InitBaltte( )
     {
-        _core = new BattleCore( );
+        _core           = new BattleCore( );
+
+        _core.TurnEndCb = PlaySuffleCards;
+    }
+}
+
+/// <summary>
+/// Controll UI
+/// </summary>
+public partial class BattleScene
+{
+    BattleSceneUI _sceneUI = null;
+
+    public override void OnLoadUI( )
+    {
+        if( _sceneUI == null )
+            _sceneUI = MainUI.GetUI<BattleSceneUI>( MainUI.UIType.Battle );
+    }
+
+    private void PlaySuffleCards( CardStat[] cards )
+    {
+
     }
 }
