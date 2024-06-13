@@ -20,7 +20,7 @@ MonoBehaviour:
     TickValue: 0
     CardName: "\uAE30\uBCF8 \uACF5\uACA9"
     CardSubject: "\uAE30\uBCF8 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9
-      \uD569\uB2C8."
+      \uD569\uB2C8\uB2E4."
     CardType: 1
     Animation: Attack
     BgRes: Card_Alt2_Front
@@ -30,7 +30,7 @@ MonoBehaviour:
     TickTurn: 0
     TickValue: 0
     CardName: "\uAC15\uD55C \uACF5\uACA9"
-    CardSubject: "\uAC15 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9 \uD569\uB2C8."
+    CardSubject: "\uAC15 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9 \uD569\uB2C8\uB2E4."
     CardType: 1
     Animation: Attack
     BgRes: Card_Silver_Blue_Front
