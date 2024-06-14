@@ -33,8 +33,8 @@ public partial class Monster : BaseCharacter, ICharacter.IBehavior, ICharacter.I
 /// </summary>
 public partial class Monster
 {
-    public async void DoBehavior( AnimationType type )
+    public async UniTask DoBehavior( AnimationType type )
     {
-        await DoAnimation(type);
+        await DoAnimationWithWaiting(type);
     }
 }

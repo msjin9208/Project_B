@@ -22,7 +22,8 @@ MonoBehaviour:
     CardSubject: "\uAE30\uBCF8 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9
       \uD569\uB2C8\uB2E4."
     CardType: 1
-    Animation: Attack
+    TargetType: 1
+    Animation: 1
     BgRes: Card_Alt2_Front
   - Index: 2
     Power: 20
@@ -32,5 +33,6 @@ MonoBehaviour:
     CardName: "\uAC15\uD55C \uACF5\uACA9"
     CardSubject: "\uAC15 \uACF5\uACA9\uD558\uC5EC \uC801\uC744 \uD0C0\uACA9 \uD569\uB2C8\uB2E4."
     CardType: 1
-    Animation: Attack
+    TargetType: 1
+    Animation: 1
     BgRes: Card_Silver_Blue_Front

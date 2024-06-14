@@ -36,9 +36,10 @@ public partial class BattleScene
 
     private void InitBaltte( )
     {
-        _core           = new BattleCore( );
+        _core = new BattleCore( );
 
-        _core.PlayCardSuffle = PlaySuffleCards;
+        _core.PlayCardSuffle    = PlaySuffleCards;
+        _core.PlayViewForState  = PlayViewForState;
     }
 
     private void SelectCard( int idx )
@@ -60,6 +61,11 @@ public partial class BattleScene
             _sceneUI = MainUI.GetUI<BattleSceneUI>( MainUI.UIType.Battle );
 
         _sceneUI.SelectCardCb = SelectCard;
+    }
+
+    private async void PlayViewForState( CommonEnum.TurnState state )
+    {
+        await _sceneUI.ViewForState(state);
     }
 
     private void PlaySuffleCards( CardStat[] cards )

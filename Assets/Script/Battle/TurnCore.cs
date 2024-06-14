@@ -29,8 +29,6 @@ public partial class TurnCore
         _turnStates.Add( TurnState.End      , new TurnEnd( this ) );
 
         ResetData();
-
-        MoveTo( TurnState.Stand );
     }
 }
 
@@ -50,6 +48,7 @@ public partial class TurnCore
     private int                             _turnCnt;
     private int                             _remainTurn;
 
+    public TurnState        State => _curState;
     public BaseCharacter    Caster => _turnCharacter;
     public BaseCharacter    Target => _targetCharacter;
     public BaseCard         Card => _selectCard;
@@ -67,7 +66,7 @@ public partial class TurnCore
 /// </summary>
 public partial class TurnCore
 {
-    public UnityAction ResetTurn;
+    public UnityAction<TurnState> BeforeChangeState;
 
     public void SetTurnCharacter( BaseCharacter character )
     {
@@ -84,17 +83,13 @@ public partial class TurnCore
 
     public void NextState( )
     {
-        TurnState next = _curState;
-        if (++_curState == TurnState.End)
+        TurnState next = _curState + 1;
+        if ( next == TurnState.MAX)
         {
             next = TurnState.Stand;
         }
-        else
-        {
-            next = _curState;
-        }
 
-        MoveTo(next);
+        MoveTo( next );
     }
 
     private void MoveTo( TurnState state )
@@ -107,7 +102,10 @@ public partial class TurnCore
 
         _curState = state;
 
-        if( _turnStates.TryGetValue( _curState , out var next ) )
+        if (null != BeforeChangeState)
+            BeforeChangeState.Invoke(_curState);
+
+        if ( _turnStates.TryGetValue( _curState , out var next ) )
         {
             next.Enter( );
             TurnExcute( next );

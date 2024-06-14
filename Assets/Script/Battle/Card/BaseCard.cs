@@ -3,14 +3,14 @@ using UnityEngine;
 
 public abstract class BaseCard : ICard.IStat
 {
-    public int          Index { private set; get; }
-    public int          Power { private set; get; }
-    public int          Defense { private set; get; }
-    public int          TickTurn { private set; get; }
-    public int          TickValue { private set; get; }
-    public CardType     CardType { private set; get; }
-    public OnTarget     TargetType { private set; get; }
-    public string       Animation { private set; get; }
+    public int              Index { private set; get; }
+    public int              Power { private set; get; }
+    public int              Defense { private set; get; }
+    public int              TickTurn { private set; get; }
+    public int              TickValue { private set; get; }
+    public CardType         CardType { private set; get; }
+    public OnTarget         TargetType { private set; get; }
+    public AnimationType    Animation { private set; get; }
 
     public void SetCard( CardStat stat )
     {

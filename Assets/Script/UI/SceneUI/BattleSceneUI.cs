@@ -1,7 +1,8 @@
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using CommonEnum;
 
 public partial class BattleSceneUI : BaseSceneUI
 {
@@ -35,6 +36,7 @@ public partial class BattleSceneUI : BaseSceneUI
 public partial class BattleSceneUI
 {
     [SerializeField] CardUI[]   _cardsUI;
+    [SerializeField] GameObject _cardDimmed;
 
     public UnityAction<int>     SelectCardCb;
 
@@ -56,6 +58,29 @@ public partial class BattleSceneUI
             ui.SelectCB = SelectCardCb;
 
             ui.ViewCard(cards[i]);
+        }
+    }
+}
+
+/// <summary>
+/// State
+/// </summary>
+public partial class BattleSceneUI
+{
+    public async UniTask ViewForState( TurnState state )
+    {
+        switch(state)
+        {
+            case TurnState.Behavior:
+                {
+                    _cardDimmed.SetActive(true);
+                }
+                break;
+            default:
+                {
+                    _cardDimmed.SetActive(false);
+                }
+                break;
         }
     }
 }

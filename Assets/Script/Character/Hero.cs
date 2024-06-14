@@ -12,8 +12,8 @@ public class Hero : BaseCharacter, ICharacter.IBehavior
     }
 
 
-    public async void DoBehavior( AnimationType type )
+    public async UniTask DoBehavior( AnimationType type )
     {
-        await DoAnimation(type);
+        await DoAnimationWithWaiting(type);
     }
 }

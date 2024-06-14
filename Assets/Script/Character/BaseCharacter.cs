@@ -38,13 +38,22 @@ public partial class BaseCharacter
         }
     }
 
-    protected async UniTask DoAnimation( AnimationType type )
+    protected void DoAnimation( AnimationType type )
     {
-        _animator.Play( type.ToString() );
+        _animator.Play(type.ToString());
+    }
 
-        var animation = _animator.GetNextAnimatorStateInfo(0);
+    protected async UniTask DoAnimationWithWaiting( AnimationType type )
+    {
+        DoAnimation(type);
 
+        await UniTask.DelayFrame(1);
+
+        float time = _animator.GetCurrentAnimatorStateInfo(0).length;
         
+        await UniTask.Delay(System.TimeSpan.FromSeconds(time));
+
+        DoAnimation(AnimationType.Idle);
     }
 }
     

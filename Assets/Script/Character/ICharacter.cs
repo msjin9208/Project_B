@@ -16,7 +16,7 @@ namespace ICharacter
 
     public interface IBehavior
     {
-        public void DoBehavior( AnimationType type );
+        public UniTask DoBehavior( AnimationType type );
     }
 
     public interface IBuff

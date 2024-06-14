@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CommonEnum;
 using UnityEngine.Events;
+using UniRx;
 
 /// <summary>
 /// Base
@@ -11,18 +12,23 @@ public partial class BattleCore
     public BattleCore( )
     {
         _characterDic = new Dictionary<Camp , BaseCharacter>( );
+    }
 
-        InitTurn( );
-        InitWave( );
+    public void SetDataForStart( )
+    {
+        InitTurn();
+        InitWave();
 
-        InitCharacterPosition( );
-        InitCharacter( );
+        InitCharacterPosition();
+        InitCharacter();
 
-        InitializeCard( );
+        InitializeCard();
     }
 
     public void BattleStart( )
     {
+        SetDataForStart( );
+
         StartWave( );
         StartTurn( );
     }
@@ -64,7 +70,8 @@ public partial class BattleCore
     private TurnCore    _turnCore;
     private Camp        _curTurnCamp;
 
-    public UnityAction<CardStat[]> PlayCardSuffle;
+    public UnityAction<CardStat[]>  PlayCardSuffle;
+    public UnityAction<TurnState>   PlayViewForState;
 
     public BaseCharacter GetCurCharacter => _characterDic[_curTurnCamp];
     public BaseCharacter GetCharacter( Camp camp ) => _characterDic[camp];
@@ -87,11 +94,15 @@ public partial class BattleCore
 
         return target;
     }
-    
+
     private void InitTurn( )
     {
         _turnCore       = new TurnCore( );
         _curTurnCamp    = Camp.None;
+
+        _turnCore.BeforeChangeState = BeforeChangeState;
+
+        _turnCore.NextState();
     }
 
     public void StartTurn( )
@@ -103,6 +114,22 @@ public partial class BattleCore
             CardStat[] cards = GetCardsWithSuffle(_curTurnCamp);
             PlayCardSuffle.Invoke(cards);
         }
+    }
+
+    public void BeforeChangeState( TurnState state )
+    {
+        switch(state)
+        {
+            case TurnState.End:
+                {
+                    SwichTurn();
+                }
+                break;
+        }
+
+
+        if ( null != PlayViewForState )
+            PlayViewForState.Invoke(state);
     }
 
 

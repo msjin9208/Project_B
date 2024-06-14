@@ -43,6 +43,7 @@ namespace CommonEnum
         Start       = 2,
         Behavior    = 3,
         End         = 4,
+        MAX
     }
 
     public enum CardType

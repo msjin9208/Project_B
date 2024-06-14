@@ -12,11 +12,15 @@ using UnityEngine.Events;
 public partial class TurnBehavior : BaseTurn
 {
     public TurnBehavior(TurnCore core) : base(core) { }
-    public override void Enter( )
+    public override async void Enter( )
     {
         base.Enter( );
 
         Debug.Log( "Enter Behavior" );
+
+        await DoAnimation( );
+
+        _core.NextState();
     }
 
     public override void Excute( )
@@ -43,16 +47,10 @@ public partial class TurnBehavior
 
         if( null != behavior )
         {
-            AnimationType anim = AnimationType.Idle;
-
-            Enum.TryParse<AnimationType>( card.Animation , out anim );
-
-            behavior.DoBehavior(anim);
+            await behavior.DoBehavior(card.Animation);
         }
 
         DoEffect( );
-
-        _core.NextState( );
     }
 
     private void DoEffect( )
