@@ -5,11 +5,13 @@ using UnityEngine;
 public class TurnStart : BaseTurn
 {
     public TurnStart(TurnCore core) : base(core) { }
-    public override void Enter( BaseCharacter character )
+    public override void Enter( )
     {
-        base.Enter( character );
+        base.Enter( );
 
         Debug.Log( "Enter Start" );
+
+        _core.NextState( );
     }
 
     public override void Excute( )

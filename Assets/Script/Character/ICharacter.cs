@@ -1,3 +1,4 @@
+using CommonEnum;
 using Cysharp.Threading.Tasks;
 
 namespace ICharacter
@@ -15,8 +16,7 @@ namespace ICharacter
 
     public interface IBehavior
     {
-        public UniTask DoBehavior( );
-        public void DoAnimation( string anim );
+        public void DoBehavior( AnimationType type );
     }
 
     public interface IBuff

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using CommonEnum;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-
-
 public partial class BaseCharacter : MonoBehaviour , ICharacter.IStat
 {
     public string   Name { get; protected set; }
@@ -25,6 +23,9 @@ public partial class BaseCharacter : MonoBehaviour , ICharacter.IStat
     }
 }
 
+/// <summary>
+/// Animation
+/// </summary>
 public partial class BaseCharacter
 {
     protected Animator _animator;
@@ -36,4 +37,14 @@ public partial class BaseCharacter
             Debug.Log( "Animator is not Available" );
         }
     }
+
+    protected async UniTask DoAnimation( AnimationType type )
+    {
+        _animator.Play( type.ToString() );
+
+        var animation = _animator.GetNextAnimatorStateInfo(0);
+
+        
+    }
 }
+    

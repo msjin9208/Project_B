@@ -1,3 +1,4 @@
+using CommonEnum;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,13 +12,8 @@ public class Hero : BaseCharacter, ICharacter.IBehavior
     }
 
 
-    public async UniTask DoBehavior( )
+    public async void DoBehavior( AnimationType type )
     {
-
-    }
-
-    public void DoAnimation( string anim )
-    {
-
+        await DoAnimation(type);
     }
 }

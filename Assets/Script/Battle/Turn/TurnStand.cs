@@ -5,9 +5,9 @@ using UnityEngine;
 public class TurnStand : BaseTurn
 {
     public TurnStand(TurnCore core) : base(core) { }
-    public override void Enter( BaseCharacter character )
+    public override void Enter( )
     {
-        base.Enter( character );
+        base.Enter( );
 
         Debug.Log( "Enter Stand" );
     }

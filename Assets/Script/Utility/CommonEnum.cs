@@ -7,6 +7,15 @@ namespace CommonEnum
     }
     #endregion
 
+    #region [ Character ]
+    public enum AnimationType
+    {
+        Idle,
+        Attack,
+        Damage,
+    }
+    #endregion
+
     #region [ Battle ]
     public enum Camp
     {
@@ -29,10 +38,11 @@ namespace CommonEnum
 
     public enum TurnState
     {
-        Stand       = 0,
-        Start       = 1,
-        Behavior    = 2,
-        End         = 3,
+        None        = 0,
+        Stand       = 1,
+        Start       = 2,
+        Behavior    = 3,
+        End         = 4,
     }
 
     public enum CardType

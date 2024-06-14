@@ -1,3 +1,4 @@
+using CommonEnum;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ public partial class Monster : BaseCharacter, ICharacter.IBehavior, ICharacter.I
 
     public void OnDamage( int dmg )
     {
+        DoAnimation( AnimationType.Damage );
+
         Hp -= dmg;
 
         CheckDeath( );
@@ -30,13 +33,8 @@ public partial class Monster : BaseCharacter, ICharacter.IBehavior, ICharacter.I
 /// </summary>
 public partial class Monster
 {
-    public async UniTask DoBehavior( )
+    public async void DoBehavior( AnimationType type )
     {
-
-    }
-
-    public void DoAnimation( string anim )
-    {
-
+        await DoAnimation(type);
     }
 }

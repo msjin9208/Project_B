@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommonEnum;
@@ -65,6 +64,8 @@ public partial class BattleCore
     private TurnCore    _turnCore;
     private Camp        _curTurnCamp;
 
+    public UnityAction<CardStat[]> PlayCardSuffle;
+
     public BaseCharacter GetCurCharacter => _characterDic[_curTurnCamp];
     public BaseCharacter GetCharacter( Camp camp ) => _characterDic[camp];
     public BaseCharacter GetTarget( OnTarget onTarget )
@@ -86,8 +87,6 @@ public partial class BattleCore
 
         return target;
     }
-
-    public UnityAction<CardStat[]> PlayCardSuffle;
     
     private void InitTurn( )
     {
@@ -98,8 +97,6 @@ public partial class BattleCore
     public void StartTurn( )
     {
         SwichTurn( );
-
-      
 
         if (null != PlayCardSuffle)
         {

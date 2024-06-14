@@ -13,8 +13,6 @@ public partial class TurnCore
 {
     public TurnCore() 
     {
-        _turnStates = new Dictionary<TurnState , BaseTurn>( );
-
         InitData( );
     }
 
@@ -22,11 +20,15 @@ public partial class TurnCore
     {
         _turnCnt    = 0;
         _remainTurn = 10;
+        _curState   = TurnState.None;
+        _turnStates = new Dictionary<TurnState, BaseTurn>();
 
         _turnStates.Add( TurnState.Stand    , new TurnStand( this ) );
         _turnStates.Add( TurnState.Start    , new TurnStart( this ) );
         _turnStates.Add( TurnState.Behavior , new TurnBehavior( this ) );
         _turnStates.Add( TurnState.End      , new TurnEnd( this ) );
+
+        ResetData();
 
         MoveTo( TurnState.Stand );
     }
@@ -47,6 +49,10 @@ public partial class TurnCore
     private BaseCard                        _selectCard;
     private int                             _turnCnt;
     private int                             _remainTurn;
+
+    public BaseCharacter    Caster => _turnCharacter;
+    public BaseCharacter    Target => _targetCharacter;
+    public BaseCard         Card => _selectCard;
 
     public void ResetData( )
     {
@@ -78,11 +84,6 @@ public partial class TurnCore
 
     public void NextState( )
     {
-        ++_curState;
-    }
-
-    public void NextTurn( )
-    {
         TurnState next = _curState;
         if (++_curState == TurnState.End)
         {
@@ -90,7 +91,7 @@ public partial class TurnCore
         }
         else
         {
-            next = ++_curState;
+            next = _curState;
         }
 
         MoveTo(next);
@@ -108,7 +109,7 @@ public partial class TurnCore
 
         if( _turnStates.TryGetValue( _curState , out var next ) )
         {
-            next.Enter( _turnCharacter );
+            next.Enter( );
             TurnExcute( next );
         }
     }

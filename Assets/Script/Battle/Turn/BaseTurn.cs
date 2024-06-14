@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITurn
 {
-    public void Enter( BaseCharacter character );
+    public void Enter( );
     public void Excute( );
     public void Exit( );
 }
@@ -17,7 +17,7 @@ public abstract class BaseTurn : ITurn
         _core = core;
     }
 
-    public virtual void Enter( BaseCharacter character ) { }
+    public virtual void Enter( ) { }
     public virtual void Excute( ) { }
     public virtual void Exit( ) { }
 }
