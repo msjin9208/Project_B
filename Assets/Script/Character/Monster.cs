@@ -11,13 +11,18 @@ public partial class Monster : BaseCharacter, ICharacter.IBehavior, ICharacter.I
         base.SetStat( stat );
     }
 
-    public void OnDamage( int dmg )
+    public int OnDamage( int dmg )
     {
         DoAnimation( AnimationType.Damage );
 
-        Hp -= dmg;
+        int result  = dmg - Defense;
+        result      = result < 1 ? 1 : result;
+
+        Hp -= result;
 
         CheckDeath( );
+
+        return result;
     }
 
     public bool CheckDeath( ) 

@@ -53,7 +53,7 @@ public partial class BattleCore
 
     public void EndWave( )
     {
-
+        
     }
 
     private void NextWave( )
@@ -70,8 +70,9 @@ public partial class BattleCore
     private TurnCore    _turnCore;
     private Camp        _curTurnCamp;
 
-    public UnityAction<CardStat[]>  PlayCardSuffle;
-    public UnityAction<TurnState>   PlayViewForState;
+    public UnityAction<CardStat[]>          PlayCardSuffle;
+    public UnityAction<TurnState>           PlayViewForState;
+    public UnityAction<Vector2, int, bool>  PlayDamage;
 
     public BaseCharacter GetCurCharacter => _characterDic[_curTurnCamp];
     public BaseCharacter GetCharacter( Camp camp ) => _characterDic[camp];
@@ -101,6 +102,7 @@ public partial class BattleCore
         _curTurnCamp    = Camp.None;
 
         _turnCore.BeforeChangeState = BeforeChangeState;
+        _turnCore.PlayDamage        = PlayDamage;
 
         _turnCore.NextState();
     }

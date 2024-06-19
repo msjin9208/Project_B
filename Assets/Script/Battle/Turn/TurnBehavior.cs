@@ -5,6 +5,7 @@ using ICharacter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,7 +65,13 @@ public partial class TurnBehavior
             case CardType.Attack:
                 {
                     IAttack attack = card as IAttack;
-                    attack?.Attack( caster, target );
+                    
+                    if( null != attack )
+                    {
+                        int dmg = attack.Attack( caster, target );
+
+                        _core.PlayDamage( target.transform.position , dmg, target.Type == CharacterType.Hero);
+                    }
                 }
                 break;
             case CardType.Defense:

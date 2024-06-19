@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using CommonEnum;
+using static UnityEngine.GraphicsBuffer;
 
 public partial class BattleSceneUI : BaseSceneUI
 {
@@ -82,5 +83,27 @@ public partial class BattleSceneUI
                 }
                 break;
         }
+    }
+}
+
+/// <summary>
+/// Damage
+/// </summary>
+public partial class BattleSceneUI
+{
+    [SerializeField] RectTransform _dmgParent;
+
+    public void ViewDamage( Vector2 startPos, int dmg , bool opposite )
+    {
+        DamageUI load       = Resources.Load<DamageUI>("UIs/DamageUI");
+        DamageUI ui         = GameObject.Instantiate(load, _dmgParent);
+
+        if (null == ui)
+            return;
+
+        Vector2 position        = Camera.main.WorldToScreenPoint(startPos);
+        ui.transform.position   = new Vector2( position.x, position.y + 200 );
+
+        ui.PlayDamage(dmg, opposite);
     }
 }

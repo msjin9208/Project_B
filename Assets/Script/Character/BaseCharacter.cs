@@ -1,14 +1,16 @@
 using CommonEnum;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+
 public partial class BaseCharacter : MonoBehaviour , ICharacter.IStat
 {
-    public string   Name { get; protected set; }
-    public int      Hp { get; protected set; }
-    public int      MaxHp { get; protected set; }
-    public int      Power { get; protected set; }
-    public int      Defense { get; protected set; }
-    public bool     Death { get; protected set; }
+    public string           Name { get; protected set; }
+    public int              Hp { get; protected set; }
+    public int              MaxHp { get; protected set; }
+    public int              Power { get; protected set; }
+    public int              Defense { get; protected set; }
+    public bool             Death { get; protected set; }
+    public CharacterType    Type { get; protected set; }
 
 
     public virtual void SetStat( CharacterStat stat )
@@ -18,6 +20,7 @@ public partial class BaseCharacter : MonoBehaviour , ICharacter.IStat
         MaxHp   = stat.Hp;
         Power   = stat.Power;
         Defense = stat.Defense;
+        Type    = stat.CharacterType;
 
         InitAnimator( );
     }
@@ -56,4 +59,3 @@ public partial class BaseCharacter
         DoAnimation(AnimationType.Idle);
     }
 }
-    

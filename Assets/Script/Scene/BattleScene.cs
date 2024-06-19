@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public partial class BattleScene : BaseScene
 {
-    
-
     public override void Init( )
     {
         base.Init( );
@@ -40,6 +38,7 @@ public partial class BattleScene
 
         _core.PlayCardSuffle    = PlaySuffleCards;
         _core.PlayViewForState  = PlayViewForState;
+        _core.PlayDamage        = PlayDamange;
     }
 
     private void SelectCard( int idx )
@@ -71,5 +70,10 @@ public partial class BattleScene
     private void PlaySuffleCards( CardStat[] cards )
     {
         _sceneUI.PlayViewCards(cards);
+    }
+
+    private void PlayDamange( Vector2 startPos, int dmg, bool opposite )
+    {
+        _sceneUI.ViewDamage(startPos, dmg, opposite);
     }
 }

@@ -10,7 +10,7 @@ namespace ICharacter
 
     public interface IDamage
     {
-        public void OnDamage( int dmg );
+        public int OnDamage( int dmg );
         public bool CheckDeath( );
     }
 

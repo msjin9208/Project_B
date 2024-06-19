@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class AttackCard : BaseCard, ICard.IAttack
 {
-    public bool Attack( BaseCharacter caster, BaseCharacter target )
+    public int Attack( BaseCharacter caster, BaseCharacter target )
     {
         int cardPower   = Power;
         int castPower   = caster.Power;
-        int result      = cardPower + castPower;
+        int dmg         = cardPower + castPower;
 
         IDamage damage  = target as IDamage;
 
         if( null == damage )
-            return false;
+            return 0;
         
-        damage.OnDamage( result );
+        int result = damage.OnDamage( dmg );
 
-        return true;
+        return result;
     }
 }

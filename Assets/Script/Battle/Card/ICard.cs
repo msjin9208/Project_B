@@ -16,7 +16,7 @@ namespace ICard
 
     public interface IAttack
     {
-        public bool Attack( BaseCharacter caster, BaseCharacter target );
+        public int Attack( BaseCharacter caster, BaseCharacter target );
     }
 
     public interface IDefense

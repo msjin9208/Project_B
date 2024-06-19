@@ -21,7 +21,7 @@ public partial class TurnCore
         _turnCnt    = 0;
         _remainTurn = 10;
         _curState   = TurnState.None;
-        _turnStates = new Dictionary<TurnState, BaseTurn>();
+        _turnStates = new Dictionary<TurnState, BaseTurn>( );
 
         _turnStates.Add( TurnState.Stand    , new TurnStand( this ) );
         _turnStates.Add( TurnState.Start    , new TurnStart( this ) );
@@ -66,7 +66,8 @@ public partial class TurnCore
 /// </summary>
 public partial class TurnCore
 {
-    public UnityAction<TurnState> BeforeChangeState;
+    public UnityAction<TurnState>           BeforeChangeState;
+    public UnityAction<Vector2, int, bool>  PlayDamage;
 
     public void SetTurnCharacter( BaseCharacter character )
     {
