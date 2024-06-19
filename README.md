@@ -3,4 +3,4 @@
 - 소개 : Project_T
 - 장르 : Turn RPG, TCG
 ---
-![image](https://github.com/msjin9208/Project_B/assets/87684244/7c67525f-c0fa-47d2-a392-65f7502bfe99)
+![alt text](image.png)
